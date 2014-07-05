@@ -1,13 +1,23 @@
+<?php
+	//Start session
+	session_start();
+	//Unset stored variables
+	unset($_SESSION['SESS_MEMBER_ID']);
+	unset($_SESSION['SESS_USERNAME']);
+	unset($_SESSION['SESS_SERVICECREDS']);
+	unset($_SESSION['SESS_DONATIONCREDS']);
+	unset($_SESSION['SESS_TUTORING']);
+?>
 <html>
 <head>
-<link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 <title>Log In</title>
 </head>
 <body>
 <!-- Displays message of the input validation -->
 <?php
 if(isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ){
-	echo '<ul class="err">';
+	echo '<ul>';
 	foreach($_SESSION['ERRMSG_ARR'] as $msg){
 		echo '<li>',$msg,'</li>';
 	}

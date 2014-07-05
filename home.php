@@ -17,12 +17,15 @@ require_once('auth.php');
 </head>
  
 <body>
-Welcome
+You are now logged in as 
 <?php 
-print $_SESSION['MEMBER_USERNAME'];
+print $_SESSION['SESS_USERNAME'];
+echo '<br>';
+echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
 ?>
+
 <p align="center" class="style1">Login successfully </p>
 <p align="center">This page is the home, you can put some stuff here......</p>
-<p align="center"><a href="index.php">logout</a></p>
+<p align="center"><a href="login.php">logout</a></p>
 </body>
 </html>

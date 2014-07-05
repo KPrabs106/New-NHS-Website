@@ -549,6 +549,11 @@ body {
 #body .sidebar ul li p a:hover {
 	color: #4c8f97;
 }
+
+.err{
+    color: #FF0000;
+    text-decoration: underline;
+}
 #footer {
 	background: #4c8f96;
 	border-top: 1px solid #9bd9e0;

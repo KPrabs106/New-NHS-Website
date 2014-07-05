@@ -36,9 +36,11 @@ if($password == ''){
 
 //Redirect to login form if there are any errors
 if($errflag){
-	$_SESSION['ERRMSG_ARG'] = $errmsg_arr;
+	$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 	session_write_close();
-	header("location: index.php");
+        //header("Location: http://waynehillsnhs.org/index.php");
+        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
+//header("location: index.php");
 	exit();
 }
 
