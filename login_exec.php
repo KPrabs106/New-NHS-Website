@@ -44,14 +44,15 @@ if($errflag){
 	exit();
 }
 
+//Hash the password
+$password_hash = md5($password);
 //Create a query
-$qry="SELECT * FROM details WHERE username='$username' AND password='$password'";
+$qry="SELECT * FROM details WHERE username='$username' AND password='$password_hash'";
 $result=mysql_query($qry);
 
 //Check if query was successful
 if ($result){
 	if(mysql_num_rows($result) > 0){
-		//echo 'Good login';
 		//Successful login
 		session_regenerate_id();
 		$member = mysql_fetch_assoc($result);
@@ -61,26 +62,22 @@ if ($result){
 		$_SESSION['SESS_SERVICECREDS'] = $member['servicecreds'];
 		$_SESSION['SESS_DONATIONCREDS'] = $member['donationcreds'];
 		$_SESSION['SESS_TUTORING'] = $member['tutoring'];
+                $_SESSION['SESS_POSITION'] = $member['position'];
 		
-		//echo $_SESSION['SESS_MEMBER_ID'];
-		//echo $_SESSION['SESS_USERNAME'];
-		//session_write_close();
-		//echo 'assignment';
 		echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/home.php";</script>';
 		
 		//The code below does not work for some reason...
-		//header('Location: home.php');
-		//exit();
+		/*header('Location: home.php');
+		exit();*/
 	}
 	else{
-		echo 'failed login';
 		//Failed login
 		$errmsg_arr[] = 'invalid username and/or password';
 		$errflag = true;
 		if($errflag){
 			$_SESSION['ERRMSG_ARG'] = $errmsg_arr;
 			session_write_close();
-			header("location: home.php");
+			header("location: login.php");
 			die();
 			//exit();
 		}

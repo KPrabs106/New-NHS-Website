@@ -7,6 +7,7 @@
 	unset($_SESSION['SESS_SERVICECREDS']);
 	unset($_SESSION['SESS_DONATIONCREDS']);
 	unset($_SESSION['SESS_TUTORING']);
+        unset($_SESSION['SESS_POSITION']);
 ?>
 <html>
 <head>

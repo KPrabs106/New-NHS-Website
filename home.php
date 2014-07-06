@@ -5,15 +5,7 @@ require_once('auth.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Untitled Document</title>
-<style type="text/css">
-<!--
-.style1 {
-	font-size: 36px;
-	font-weight: bold;
-}
--->
-</style>
+<title>My NHS</title>
 </head>
  
 <body>
@@ -21,8 +13,38 @@ You are now logged in as
 <?php 
 print $_SESSION['SESS_USERNAME'];
 echo '<br>';
-echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
 ?>
+
+//Displays if the user is just a member
+<?php
+if($_SESSION['SESS_POSITION'] == 'member'){
+    echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
+    echo '<br>';
+    if($_SESSION['SESS_YEAR'] == 1);
+    //
+    //$credits_needed = 
+}
+?>
+
+//Displays to all officers
+<?php if($_SESSION['SESS_POSITION'] != 'member') { ?>
+<h1>Member Registration</h1>
+<br/>
+<form method="post" action="member_registration.php">
+    Username
+    <input type="text" name="username" size="40" /><br />
+    Password
+    <input type="text" name="password" size="40" /><br/>
+    <input type="radio" name="year" value="First Year"/>
+    <input type="radio" name="year" value="Second Year"/><br/>
+    <input id="button" type="submit" name="submit" value="Submit" />
+</form>
+<?php } ?>
+
+//Displays if the user is a first year credit officer
+<?php if($_SESSION['SESS_POSITION'] == 'fycr') { ?>
+
+<?php } ?>
 
 <p align="center" class="style1">Login successfully </p>
 <p align="center">This page is the home, you can put some stuff here......</p>
