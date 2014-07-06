@@ -77,7 +77,8 @@ if ($result){
 		if($errflag){
 			$_SESSION['ERRMSG_ARG'] = $errmsg_arr;
 			session_write_close();
-			header("location: login.php");
+		        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
+                        //header("location: login.php");
 			die();
 			//exit();
 		}

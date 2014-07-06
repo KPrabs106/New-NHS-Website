@@ -15,7 +15,7 @@ print $_SESSION['SESS_USERNAME'];
 echo '<br>';
 ?>
 
-//Displays if the user is just a member
+<!--Displays if the user is just a member-->
 <?php
 if($_SESSION['SESS_POSITION'] == 'member'){
     echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
@@ -26,22 +26,21 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 }
 ?>
 
-//Displays to all officers
+<!--Displays to all officers-->
 <?php if($_SESSION['SESS_POSITION'] != 'member') { ?>
 <h1>Member Registration</h1>
-<br/>
 <form method="post" action="member_registration.php">
     Username
     <input type="text" name="username" size="40" /><br />
     Password
     <input type="text" name="password" size="40" /><br/>
-    <input type="radio" name="year" value="First Year"/>
-    <input type="radio" name="year" value="Second Year"/><br/>
+    <input type="radio" name="year" value="1">First Year</input>
+    <input type="radio" name="year" value="2">Second Year</input><br/>
     <input id="button" type="submit" name="submit" value="Submit" />
 </form>
 <?php } ?>
 
-//Displays if the user is a first year credit officer
+<!--Displays if the user is a credit officer-->
 <?php if($_SESSION['SESS_POSITION'] == 'fycr') { ?>
 
 <?php } ?>
