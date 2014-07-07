@@ -9,10 +9,6 @@
     $newpassword = $_POST['password'];
     
     //Check for blank fields
-    if(!isset($_POST['year'])){
-        echo '<script type="text/javascript">alert("SELECT A YEAR!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
-        die();
-    }
     if($newusername == ''){
         $errflag = true;
         echo '<script type="text/javascript">alert("BLANK USERNAME!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
@@ -23,15 +19,12 @@
         echo '<script type="text/javascript">alert("BLANK PASSWORD!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
         die();
     }
+    if(!isset($_POST['year'])){
+        echo '<script type="text/javascript">alert("SELECT A YEAR!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+        die();
+    }    
     
-    $selected_radio = $_POST['year'];
-    /*if($selected_radio == 'First Year'){
-        $year = '1';
-    }
-    if($selected_radio == 'Second Year'){
-        $year = '2';
-    }*/
-       
+    $selected_radio = $_POST['year'];       
     
     //Hash the password
     $newpassword_hash = md5($newpassword);
