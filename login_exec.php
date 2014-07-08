@@ -80,8 +80,8 @@ if ($result){
 			session_write_close();
 		        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
                         //header("location: login.php");
-			die();
-			//exit();
+			//die();
+			exit();
 		}
 	}
 }		

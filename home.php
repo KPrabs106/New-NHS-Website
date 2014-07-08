@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(!isset($_SESSION['SESS_MEMBER_ID']) && (trim($_SESSION['SESS_MEMBER_ID']) == '')){
+        echo'<script type="text/javascript"> document.location="http://waynehillsnhs.org/login.php;</script>"';
+	//header("location: index.php");
+	exit();
+}
 require_once('auth.php');
 require_once('connection.php');
 include('vars.php');
@@ -14,7 +19,7 @@ include('vars.php');
 <body>
 You are now logged in as 
 <?php 
-print $_SESSION['SESS_USERNAME'];
+echo $_SESSION['SESS_USERNAME'];
 echo '<br>';
 ?>
 
@@ -92,7 +97,7 @@ if($result){
 <?php if( ($_SESSION['SESS_POSITION'] == 'sycro') ) { ?>
 <h1>Credit Statistics (Second Year)</h1>
 <?php
-$qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=2 AND position='member'";
+$qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$sycreditsneeded' AND year=2 AND position='member'";
 $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
@@ -106,6 +111,38 @@ $result = mysql_query($qry);
 if($result){
     $total_fy_members=mysql_num_rows($result);
     echo $total_fy_members-$amount_completed.' second year members have NOT completed their credits. '.'<a href="sy_incomplete_list.php">Who?</a><br/>';
+}
+?>
+<?php } ?>
+
+<!--Displays if the user is a tutoring officer-->
+<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring')) { ?>
+<h1>Tutoring Updater</h1>
+<form method="post" action="tutoring_update.php">
+    Username
+    <input type="text" name="username" size="40"/><br/>
+    <input type="submit" name="submit" value="Update" />
+</form>
+<?php } ?>
+
+<!--Displays if the user is a tutoring officer-->
+<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring' )) { ?>
+<h1>Tutoring Statistics</h1>
+<?php
+$qry = "SELECT * FROM details WHERE position='member' AND tutoring=1";
+$result = mysql_query($qry);
+if($result){
+    $amount_tutored = mysql_num_rows($result);
+    echo $amount_tutored.' members have completed their tutoring requirements. '.'<a href="complete_tutoring.php">Who?</a><br/>';
+}
+else{
+    echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
+}
+$qry = "SELECT * FROM details WHERE position='member' AND tutoring=0";
+$result = mysql_query($qry);
+if($result){
+    $amount_not_tutored=mysql_num_rows($result);
+    echo $amount_not_tutored.' members have NOT completed their tutoring requirements. '.'<a href="incomplete_tutoring.php">Who?</a><br/>';
 }
 ?>
 <?php } ?>
