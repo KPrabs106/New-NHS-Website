@@ -1,5 +1,6 @@
 <?php
 require_once('auth.php');
+require_once('connection.php');
 include('vars.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -53,7 +54,7 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 
 <!--Displays if the user is a credit officer-->
 <?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || ($_SESSION['SESS_POSITION'] == 'sycro')) { ?>
-<h1>Credit Update</h1>
+<h1>Credit Updater</h1>
 <form method="post" action="credit_update.php">
     Username
     <input type="text" name="username" size="40"/><br/>
@@ -62,6 +63,14 @@ if($_SESSION['SESS_POSITION'] == 'member'){
     <input type="number" placeholder="Donation Credits" name="donationcredits" /><br/>
     <input id="button" type="submit" name="submit" value="Update" />
 </form>
+<?php } ?>
+
+<!--Displays if the user is a first year credit officer-->
+<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') ) { ?>
+<h1>Credit Statistics</h1>
+<?php
+$qry = "SELECT * FROM details"
+?>
 <?php } ?>
 
 <p align="center"><a href="login.php">logout</a></p>
