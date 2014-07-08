@@ -1,6 +1,6 @@
 <?php
 require_once('auth.php');
-include()
+include('vars.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,9 +21,19 @@ echo '<br>';
 if($_SESSION['SESS_POSITION'] == 'member'){
     echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
     echo '<br>';
-    if($_SESSION['SESS_YEAR'] == 1);
-    //
-    //$credits_needed = 
+    if($_SESSION['SESS_YEAR'] == 1){
+        $credits_needed = $fycreditsneeded;
+    }
+    else if($_SESSION['SESS_YEAR'] == 2){
+        $credits_needed = $sycreditsneeded;
+    }
+    
+    if(($_SESSION['SESS_SERVICECREDS']+$_SESSION['SESS_DONATIONCREDS']) >= $credits_needed){
+        echo '<img src="check.png" alt="Good to go!">';
+    }
+    else{
+        echo '<img src="wrong.png" alt="You still need more!">';
+    }
 }
 ?>
 
@@ -42,12 +52,18 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 <?php } ?>
 
 <!--Displays if the user is a credit officer-->
-<?php if($_SESSION['SESS_POSITION'] == 'fycr') { ?>
-
+<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || ($_SESSION['SESS_POSITION'] == 'sycro')) { ?>
+<h1>Credit Update</h1>
+<form method="post" action="credit_update.php">
+    Username
+    <input type="text" name="username" size="40"/><br/>
+    Increment<br/>
+    <input type="number" placeholder="Service Credits" name="servicecredits" /><br/>
+    <input type="number" placeholder="Donation Credits" name="donationcredits" /><br/>
+    <input id="button" type="submit" name="submit" value="Update" />
+</form>
 <?php } ?>
 
-<p align="center" class="style1">Login successfully </p>
-<p align="center">This page is the home, you can put some stuff here......</p>
 <p align="center"><a href="login.php">logout</a></p>
 </body>
 </html>

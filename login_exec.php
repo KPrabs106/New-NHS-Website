@@ -59,6 +59,7 @@ if ($result){
 		//Assign values
 		$_SESSION['SESS_MEMBER_ID'] = $member['id'];
 		$_SESSION['SESS_USERNAME'] = $member['username'];
+                $_SESSION['SESS_YEAR'] = $member['year'];
 		$_SESSION['SESS_SERVICECREDS'] = $member['servicecreds'];
 		$_SESSION['SESS_DONATIONCREDS'] = $member['donationcreds'];
 		$_SESSION['SESS_TUTORING'] = $member['tutoring'];
@@ -75,7 +76,7 @@ if ($result){
 		$errmsg_arr[] = 'invalid username and/or password';
 		$errflag = true;
 		if($errflag){
-			$_SESSION['ERRMSG_ARG'] = $errmsg_arr;
+			$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 			session_write_close();
 		        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
                         //header("location: login.php");
