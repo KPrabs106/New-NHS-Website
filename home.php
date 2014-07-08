@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('auth.php');
 require_once('connection.php');
 include('vars.php');
@@ -67,9 +68,45 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 
 <!--Displays if the user is a first year credit officer-->
 <?php if( ($_SESSION['SESS_POSITION'] == 'fycro') ) { ?>
-<h1>Credit Statistics</h1>
+<h1>Credit Statistics (First Year)</h1>
 <?php
-$qry = "SELECT * FROM details"
+$qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=1 AND position='member'";
+$result = mysql_query($qry);
+if($result){
+    $amount_completed= mysql_num_rows($result);
+    echo $amount_completed.' first year members have completed their credits. '.'<a href="fy_complete_list.php">Who?</a><br/>';
+}
+else{
+    echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
+}
+$qry = "SELECT * FROM details WHERE year=1 AND position='member'";
+$result = mysql_query($qry);
+if($result){
+    $total_fy_members=mysql_num_rows($result);
+    echo $total_fy_members-$amount_completed.' first year members have NOT completed their credits. '.'<a href="fy_incomplete_list.php">Who?</a><br/>';
+}
+?>
+<?php } ?>
+
+<!--Displays if the user is a second year credit officer-->
+<?php if( ($_SESSION['SESS_POSITION'] == 'sycro') ) { ?>
+<h1>Credit Statistics (Second Year)</h1>
+<?php
+$qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=2 AND position='member'";
+$result = mysql_query($qry);
+if($result){
+    $amount_completed= mysql_num_rows($result);
+    echo $amount_completed.' second year members have completed their credits. '.'<a href="sy_complete_list.php">Who?</a><br/>';
+}
+else{
+    echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
+}
+$qry = "SELECT * FROM details WHERE year=2 AND position='member'";
+$result = mysql_query($qry);
+if($result){
+    $total_fy_members=mysql_num_rows($result);
+    echo $total_fy_members-$amount_completed.' second year members have NOT completed their credits. '.'<a href="sy_incomplete_list.php">Who?</a><br/>';
+}
 ?>
 <?php } ?>
 
