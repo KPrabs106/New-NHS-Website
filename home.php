@@ -1,11 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION['SESS_MEMBER_ID']) && (trim($_SESSION['SESS_MEMBER_ID']) == '')){
-        echo'<script type="text/javascript"> document.location="http://waynehillsnhs.org/login.php;</script>"';
-	//header("location: index.php");
-	exit();
+if(!isset($_SESSION['SESS_USERNAME']) && (trim($_SESSION['SESS_USERNAME']) == '')){
+    echo'<script type="text/javascript">alert("NO USERNAME SET");</script>';    
+    //echo'<script type="text/javascript"> document.location="http://waynehillsnhs.org/login.php";</script>';
+    //die();
 }
-require_once('auth.php');
+//require_once('auth.php');
 require_once('connection.php');
 include('vars.php');
 ?>
@@ -47,6 +47,17 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 <!--Displays to all officers-->
 <?php if($_SESSION['SESS_POSITION'] != 'member') { ?>
 <h1>Member Registration</h1>
+<!--This part displays if there are any errors with the form submission-->
+<?php
+if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) && count($_SESSION['ERRMSG_REG_ARR']) >0 ){
+    echo '<ul>';
+	foreach($_SESSION['ERRMSG_REG_ARR'] as $msg){
+		echo '<li>',$msg,'</li>';
+	}
+	echo '</ul>';
+	unset($_SESSION['ERRMSG_REG_ARR']);
+}
+?>
 <form method="post" action="member_registration.php">
     Username
     <input type="text" name="username" size="40" /><br />
@@ -118,6 +129,17 @@ if($result){
 <!--Displays if the user is a tutoring officer-->
 <?php if( ($_SESSION['SESS_POSITION'] == 'tutoring')) { ?>
 <h1>Tutoring Updater</h1>
+<!--This part displays if there are any errors with the form submission-->
+<?php
+if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) && count($_SESSION['ERRMSG_TUT_ARR']) >0 ){
+    echo '<ul>';
+	foreach($_SESSION['ERRMSG_TUT_ARR'] as $msg){
+		echo '<li>',$msg,'</li>';
+	}
+	echo '</ul>';
+	unset($_SESSION['ERRMSG_TUT_ARR']);
+}
+?>
 <form method="post" action="tutoring_update.php">
     Username
     <input type="text" name="username" size="40"/><br/>

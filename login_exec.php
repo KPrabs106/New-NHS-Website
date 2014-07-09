@@ -40,8 +40,7 @@ if($errflag){
 	session_write_close();
         //header("Location: http://waynehillsnhs.org/index.php");
         echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
-//header("location: index.php");
-	exit();
+	die();
 }
 
 //Hash the password
@@ -57,7 +56,6 @@ if ($result){
 		session_regenerate_id();
 		$member = mysql_fetch_assoc($result);
 		//Assign values
-		$_SESSION['SESS_MEMBER_ID'] = $member['id'];
 		$_SESSION['SESS_USERNAME'] = $member['username'];
                 $_SESSION['SESS_YEAR'] = $member['year'];
 		$_SESSION['SESS_SERVICECREDS'] = $member['servicecreds'];
