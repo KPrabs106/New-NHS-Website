@@ -1,25 +1,49 @@
 <?php
 session_start();
-if(!isset($_SESSION['SESS_USERNAME']) && (trim($_SESSION['SESS_USERNAME']) == '')){
-    echo'<script type="text/javascript">alert("NO USERNAME SET");</script>';    
-    //echo'<script type="text/javascript"> document.location="http://waynehillsnhs.org/login.php";</script>';
-    //die();
-}
-//require_once('auth.php');
+require_once('auth.php');
 require_once('connection.php');
 include('vars.php');
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>My NHS</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <meta charset="UTF-8">
+    <title>My NHS- Wayne Hills NHS</title>
 </head>
  
 <body>
-You are now logged in as 
+<div id="header">
+    <div>
+        <div class="logo">
+            <a href="index.html">NHS</a>
+        </div>
+        <ul id="navigation">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a href="news.html">News</a>
+            </li>
+            <li>
+                <a href="about.html">About</a>
+            </li>
+            <li>
+                <a href="contact.html">Contact</a>
+            </li>
+            <li class="active">
+                <a href="home.php">My NHS</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="contents">
+    <div id="tagline" class="clearfix">
+You are now logged in as  
 <?php 
-echo $_SESSION['SESS_USERNAME'];
+echo '<var>'.$_SESSION['SESS_USERNAME'].'</var>';
 echo '<br>';
 ?>
 
@@ -170,5 +194,17 @@ if($result){
 <?php } ?>
 
 <p align="center"><a href="login.php">logout</a></p>
+    </div>
+</div>
+<div id="footer">
+		<div class="clearfix">
+			<div id="connect">
+				<a href="http://freewebsitetemplates.com/go/facebook/" target="_blank" class="facebook"></a><a href="http://freewebsitetemplates.com/go/googleplus/" target="_blank" class="googleplus"></a><a href="http://freewebsitetemplates.com/go/twitter/" target="_blank" class="twitter"></a><a href="http://www.freewebsitetemplates.com/misc/contact/" target="_blank" class="tumbler"></a>
+			</div>
+			<p>
+				Designed by Kartik Prabhu
+			</p>
+		</div>
+</div>
 </body>
 </html>
