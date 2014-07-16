@@ -80,7 +80,9 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 
 <!--Displays to all officers-->
 <?php if($_SESSION['SESS_POSITION'] != 'member') { ?>
-<h1>Member Registration</h1>
+<form method="post" action="member_registration.php">
+    <fieldset>
+        <legend>Member Registration</legend>
 <!--This part displays if there are any errors with the form submission-->
 <?php
 if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) && count($_SESSION['ERRMSG_REG_ARR']) >0 ){
@@ -92,7 +94,6 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
 	unset($_SESSION['ERRMSG_REG_ARR']);
 }
 ?>
-<form method="post" action="member_registration.php">
     Username
     <input type="text" name="username" size="40" /><br />
     Password
@@ -100,6 +101,7 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
     <input type="radio" name="year" value="1">First Year</input>
     <input type="radio" name="year" value="2">Second Year</input><br/>
     <input id="button" type="submit" name="submit" value="Submit" />
+    </fieldset>
 </form>
 <?php } ?>
 
@@ -110,14 +112,15 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
 <form method="post" action="credit_update.php">
     <fieldset>
         <legend>Credit Updater</legend>
-        <p class="ui-widget">
+        
             <label for="username">Username</label>
             <input type="text" name="username" size="40" id="usernameauto"/>
-        </p>
-        Increment<br/>
-        <input type="number" placeholder="Service Credits" name="servicecredits" /><br/>
-        <input type="number" placeholder="Donation Credits" name="donationcredits" /><br/>
-        <input id="button" type="submit" name="submit" value="Update" />
+            <br/>
+            Increment<br/>
+            <input type="number" placeholder="Service Credits" name="servicecredits" /><br/>
+            <input type="number" placeholder="Donation Credits" name="donationcredits" /><br/>
+            <input id="button" type="submit" name="submit" value="Update" />
+        
     </fieldset>
 </form>
 <?php } ?>
@@ -168,7 +171,9 @@ if($result){
 
 <!--Displays if the user is a tutoring officer-->
 <?php if( ($_SESSION['SESS_POSITION'] == 'tutoring')) { ?>
-<h1>Tutoring Updater</h1>
+<form method="post" action="tutoring_update.php">
+    <fieldset>
+        <legend>Tutoring Updater</legend>
 <!--This part displays if there are any errors with the form submission-->
 <?php
 if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) && count($_SESSION['ERRMSG_TUT_ARR']) >0 ){
@@ -180,10 +185,10 @@ if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) &
 	unset($_SESSION['ERRMSG_TUT_ARR']);
 }
 ?>
-<form method="post" action="tutoring_update.php">
-    Username
-    <input type="text" name="username" size="40"/><br/>
+    <label for="username">Username</label>
+    <input type="text" name="username" size="40" id="usernameauto"/><br/>
     <input type="submit" name="submit" value="Update" />
+    </fieldset>
 </form>
 <?php } ?>
 
