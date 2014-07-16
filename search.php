@@ -1,21 +1,22 @@
 <?php
+//Database connection
 require_once("connection.php");
 
-$qry = "SELECT username FROM details WHERE username LIKE '%".$term."%'";
-$json = array();
-while($member=mysql_fetch_array($query)){
-    $json[] = array(
-        'value'=> $member["username"],
-        'label'=> $member["username"]
-    );
-}
-echo json_encode($json);
+//Get the term from the field
+$term = $_GET['term'];
 
-/*
-if(isset($_GET['term'])){
-    $return_arr = array();
-    $qry = "SELECT username FROM details WHERE username LIKE :term";
-    $result = mysql_query($qry);
-    
-}*/
+//Make a query
+$qry = "SELECT username FROM details WHERE username LIKE '%".$term."%'";
+$result = mysql_query($qry);
+
+$return_arr = array();
+
+//Adds the username to the array
+while($row = mysql_fetch_array($result, MYSQL_ASSOC)){
+    $row_array['id'] = $row['id'];
+    $row_array['value'] = $row['username'];
+    array_push($return_arr,$row_array);
+}
+//Encodes the array in JSON
+echo json_encode($return_arr);
 ?>
