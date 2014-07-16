@@ -9,6 +9,10 @@ include('vars.php');
 <head>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/jquery/jquery-ui.min.js"></script>
+    <script src="js/jquery/autocomplete.js"></script>
+    <script src="js/jquery/jquery.ui.autocomplete.html.js"></script>
+    <link rel="stylesheet" href="js/jquery/jquery-ui.theme.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <meta charset="UTF-8">
     <title>My NHS- Wayne Hills NHS</title>
@@ -98,7 +102,7 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
 <h1>Credit Updater</h1>
 <form method="post" action="credit_update.php">
     Username
-    <input type="text" name="username" size="40"/><br/>
+    <input type="text" name="username" size="40" class="auto"/><br/>
     Increment<br/>
     <input type="number" placeholder="Service Credits" name="servicecredits" /><br/>
     <input type="number" placeholder="Donation Credits" name="donationcredits" /><br/>
