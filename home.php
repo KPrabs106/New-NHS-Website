@@ -86,11 +86,12 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 <!--This part displays if there are any errors with the form submission-->
 <?php
 if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) && count($_SESSION['ERRMSG_REG_ARR']) >0 ){
-    echo '<ul>';
+    echo '<ul id="errmsg">';
 	foreach($_SESSION['ERRMSG_REG_ARR'] as $msg){
 		echo '<li>',$msg,'</li>';
 	}
 	echo '</ul>';
+        echo '<script>$("#errmsg").fadeOut(3000);</script>';
 	unset($_SESSION['ERRMSG_REG_ARR']);
 }
 ?>
