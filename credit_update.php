@@ -4,17 +4,23 @@ session_start();
 require_once('connection.php');
 
 $username = $_POST['username'];
-$new_service_credits = $_POST['servicecredits'];
-$new_donation_credits = $_POST['donationcredits'];
+$inc_service_credits = $_POST['servicecredits'];
+$inc_donation_credits = $_POST['donationcredits'];
+
+$new_service_credits = $_SESSION['SESS_SERVICECREDS'] + $inc_service_credits;
+$new_donation_credits = $_SESSION['SESS_DONATIONCREDS'] + $inc_donation_credits;
 
 $qry = "UPDATE details SET servicecreds='$new_service_credits', donationcreds='$new_donation_credits' WHERE username='$username'";
 $result=mysql_query($qry);
 
 if($result){
-    echo '<script type="text/javascript">alert("Success!\nThe credits were updated!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    $_SESSION['SUCCESS_CRED_MSG'] = 'Credits updated!';
+    echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    //echo '<script type="text/javascript">alert("Success!\nThe credits were updated!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
 }
 else{
-    echo '<script type="text/javascript">alert("QUERY FAILED!\nNO UPDATE WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
-
+    $_SESSION['ERR_CRED_MSG'] = 'Failed!';
+    echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    //echo '<script type="text/javascript">alert("QUERY FAILED!\nNO UPDATE WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
 }
 ?>

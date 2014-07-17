@@ -86,13 +86,27 @@ if($_SESSION['SESS_POSITION'] == 'member'){
 <!--This part displays if there are any errors with the form submission-->
 <?php
 if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) && count($_SESSION['ERRMSG_REG_ARR']) >0 ){
-    echo '<ul id="errmsg">';
+    echo '<p class="ui-state-error">';
+    foreach($_SESSION['ERRMSG_REG_ARR'] as $msg){
+        echo $msg,'<br/>';
+    }
+    unset($_SESSION['ERRMSG_REG_ARR']);
+    echo'</p>';
+    /*echo '<ul id="errmsg">';
 	foreach($_SESSION['ERRMSG_REG_ARR'] as $msg){
 		echo '<li>',$msg,'</li>';
 	}
 	echo '</ul>';
         echo '<script>$("#errmsg").fadeOut(3000);</script>';
-	unset($_SESSION['ERRMSG_REG_ARR']);
+	unset($_SESSION['ERRMSG_REG_ARR']);*/
+}
+if(isset($_SESSION['SUCCESS_REG_MSG'])){
+    echo '<p class="ui-state-highlight">'.$_SESSION['SUCCESS_REG_MSG'].'</p>';
+    unset($_SESSION['SUCCESS_REG_MSG']);
+}
+if(isset($_SESSION['ERR_REG_MSG'])){
+    echo '<p class="ui-state-error">'.$_SESSION['ERR_REG_MSG'].'</p>';
+    unset($_SESSION['ERR_REG_MSG']);
 }
 ?>
     Username
@@ -108,12 +122,21 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
 
 <!--Displays if the user is a credit officer-->
 <?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || ($_SESSION['SESS_POSITION'] == 'sycro')) { ?>
-
 <!--Credit Updater Form-->
 <form method="post" action="credit_update.php">
     <fieldset>
         <legend>Credit Updater</legend>
-        
+            <!--Displays problems-->
+            <?php
+            if(isset($_SESSION['SUCCESS_CRED_MSG'])){
+                echo'<p class="ui-state-highlight">'.$_SESSION['SUCCESS_CRED_MSG'].'</p>';
+                unset($_SESSION['SUCCESS_CRED_MSG']);
+            }
+            if(isset($_SESSION['ERR_CRED_MSG'])){
+                echo'<p class="ui-state-error">'.$_SESSION['ERR_CRED_MSG'].'</p>';
+                unset($_SESSION['ERR_CRED_MSG']);
+            }
+            ?>
             <label for="username">Username</label>
             <input type="text" name="username" size="40" id="usernameauto"/>
             <br/>
@@ -177,16 +200,25 @@ if($result){
         <legend>Tutoring Updater</legend>
 <!--This part displays if there are any errors with the form submission-->
 <?php
-if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) && count($_SESSION['ERRMSG_TUT_ARR']) >0 ){
+/*if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) && count($_SESSION['ERRMSG_TUT_ARR']) >0 ){
     echo '<ul>';
 	foreach($_SESSION['ERRMSG_TUT_ARR'] as $msg){
 		echo '<li>',$msg,'</li>';
 	}
 	echo '</ul>';
 	unset($_SESSION['ERRMSG_TUT_ARR']);
+}*/
+if(isset($_SESSION['SUCCESS_TUT_MSG'])){
+    echo'<p class="ui-state-highlight">'.$_SESSION['SUCCESS_TUT_MSG'].'</p>';
+    unset($_SESSION['SUCCESS_TUT_MSG']);
+}
+if(isset($_SESSION['ERR_TUT_MSG'])){
+    echo'<p class="ui-state-error">'.$_SESSION['ERR_TUT_MSG'].'</p>';
+    unset($_SESSION['ERR_TUT_MSG']);
 }
 ?>
     <label for="username">Username</label>
+
     <input type="text" name="username" size="40" id="usernameauto"/><br/>
     <input type="submit" name="submit" value="Update" />
     </fieldset>

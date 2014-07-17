@@ -2,6 +2,7 @@
     session_start();
     require_once ('connection.php');
     
+    //Handles errors with the form
     $errflag = false;
     $errmsg_reg_arr = array();
     //Get the values
@@ -45,15 +46,36 @@
     //Hash the password
     $newpassword_hash = md5($newpassword);
     
-    //Create a query
-    $qry = "INSERT INTO details (username, password, year) VALUES ('$newusername','$newpassword_hash','$year')";
-    $result = mysql_query($qry);
     
-    if($result){
-        echo '<script type="text/javascript">alert("Success!\nThe member was added.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    //Create a query for checking if the user exists
+    $check_qry = "SELECT * FROM details WHERE username='$newusername'";
+    $check_result = mysql_query($check_qry);
+    
+    if($check_result){
+        if(mysql_num_rows($check_result) == 0){
+            //No other users with that username exist
+            //Create a query for adding the user
+            $qry = "INSERT INTO details (username, password, year) VALUES ('$newusername','$newpassword_hash','$year')";
+            $result = mysql_query($qry);
+            
+            if($result){
+                $_SESSION['SUCCESS_REG_MSG'] = 'Success! '. $newusername .' was added.';
+                echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+                //echo '<script type="text/javascript">alert("Success!\nThe member was added.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+            }
+            else{
+                echo '<script type="text/javascript">alert("QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+            }
+        }
+        else{
+            //There is already someone with the same username
+            $_SESSION['ERR_REG_MSG'] = $newusername.' already exists!';
+            echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+        }
     }
     else{
-        echo '<script type="text/javascript">alert("QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+        echo '<script type="text/javascript">alert("CHECKING QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
     }
+
     
 ?>
