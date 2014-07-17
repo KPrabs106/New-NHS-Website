@@ -23,11 +23,9 @@ $result=mysql_query($qry);
 if($result){
     $_SESSION['SUCCESS_TUT_MSG'] = 'Updated!';
     echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
-    //echo '<script type="text/javascript">alert("Success!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
 }
 else{
     $_SESSION['ERR_TUT_MSG'] = 'Query failed!';
     echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
-    //echo '<script type="text/javascript">alert("QUERY FAILED!\nNO CHANGES WERE MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
 }
 ?>

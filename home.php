@@ -92,13 +92,6 @@ if(isset($_SESSION['ERRMSG_REG_ARR']) && is_array($_SESSION['ERRMSG_REG_ARR']) &
     }
     unset($_SESSION['ERRMSG_REG_ARR']);
     echo'</p>';
-    /*echo '<ul id="errmsg">';
-	foreach($_SESSION['ERRMSG_REG_ARR'] as $msg){
-		echo '<li>',$msg,'</li>';
-	}
-	echo '</ul>';
-        echo '<script>$("#errmsg").fadeOut(3000);</script>';
-	unset($_SESSION['ERRMSG_REG_ARR']);*/
 }
 if(isset($_SESSION['SUCCESS_REG_MSG'])){
     echo '<p class="ui-state-highlight">'.$_SESSION['SUCCESS_REG_MSG'].'</p>';
@@ -200,14 +193,6 @@ if($result){
         <legend>Tutoring Updater</legend>
 <!--This part displays if there are any errors with the form submission-->
 <?php
-/*if(isset($_SESSION['ERRMSG_TUT_ARR']) && is_array($_SESSION['ERRMSG_TUT_ARR']) && count($_SESSION['ERRMSG_TUT_ARR']) >0 ){
-    echo '<ul>';
-	foreach($_SESSION['ERRMSG_TUT_ARR'] as $msg){
-		echo '<li>',$msg,'</li>';
-	}
-	echo '</ul>';
-	unset($_SESSION['ERRMSG_TUT_ARR']);
-}*/
 if(isset($_SESSION['SUCCESS_TUT_MSG'])){
     echo'<p class="ui-state-highlight">'.$_SESSION['SUCCESS_TUT_MSG'].'</p>';
     unset($_SESSION['SUCCESS_TUT_MSG']);

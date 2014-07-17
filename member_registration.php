@@ -13,26 +13,14 @@
     if($newusername == ''){
         $errflag = true;
         $errmsg_reg_arr[] = 'Username missing';
-        /*
-        echo '<script type="text/javascript">alert("BLANK USERNAME!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
-        die();
-        */
     }
     if($newpassword == ''){
         $errflag = true;
         $errmsg_reg_arr[] = 'Password missing';
-        /*
-        echo '<script type="text/javascript">alert("BLANK PASSWORD!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
-        die();
-         */
     }
     if(!isset($_POST['year'])){
         $errflag = true;
         $errmsg_reg_arr[] = 'Year missing';
-        /*
-        echo '<script type="text/javascript">alert("SELECT A YEAR!");window.location="http://www.waynehillsnhs.org/home.php";</script>';
-        die();
-         */
     }
     
     if($errflag){
@@ -61,7 +49,6 @@
             if($result){
                 $_SESSION['SUCCESS_REG_MSG'] = 'Success! '. $newusername .' was added.';
                 echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
-                //echo '<script type="text/javascript">alert("Success!\nThe member was added.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
             }
             else{
                 echo '<script type="text/javascript">alert("QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
