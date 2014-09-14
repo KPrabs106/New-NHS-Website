@@ -9,7 +9,7 @@ include('vars.php');
 <head>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/blitzer/jquery-ui.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script>
@@ -18,6 +18,10 @@ include('vars.php');
                 source: "search.php",
                 minLength: 2
             });
+            $( "#accordion" ).accordion({
+	            collapsible: true,
+	            heightStyle: "content"
+	        });
         });
     </script>
     <meta charset="UTF-8">
@@ -25,32 +29,34 @@ include('vars.php');
 </head>
  
 <body>
-<div id="header">
-    <div>
-        <div class="logo">
-            <a href="index.html">NHS</a>
-        </div>
-        <ul id="navigation">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a href="news.html">News</a>
-            </li>
-            <li>
-                <a href="about.html">About</a>
-            </li>
-            <li>
-                <a href="contact.html">Contact</a>
-            </li>
-            <li class="active">
-                <a href="home.php">My NHS</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div id="contents">
-    <div id="tagline" class="clearfix">
+	<div id="wrapper">
+		<div id="header">
+		    <div>
+		        <div class="logo">
+		            <a href="index.html">NHS</a>
+		        </div>
+		        <ul id="navigation">
+		            <li>
+		                <a href="index.html">Home</a>
+		            </li>
+		            <li>
+		                <a href="news.html">News</a>
+		            </li>
+		            <li>
+		                <a href="tutoring.php">Tutoring</a>
+		            </li>
+		            <li>
+		                <a href="contact.html">Contact</a>
+		            </li>
+		            <li class="active">
+		                <a href="home.php">My NHS</a>
+		            </li>
+		        </ul>
+		    </div>
+		</div>
+		<div id="contents">
+		    <div id="tagline" class="clearfix">
+		    	<br/>
 You are now logged in as  
 <?php 
 echo '<var>'.$_SESSION['SESS_USERNAME'].'</var>';
@@ -150,7 +156,21 @@ $qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$fycreditsneede
 $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
-    echo $amount_completed.' first year members have completed their credits. '.'<a href="fy_complete_list.php">Who?</a><br/>';
+    //echo $amount_completed.' first year members have completed their credits. '.'<a href="fy_complete_list.php">Who?</a><br/>';
+    echo '<div id="accordion" style="width:800px;">
+	<h3>Members who have completed their credits. ('.$amount_completed.')</h3>
+	<div>
+	<p>';
+	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=1 AND position='member'";
+$result = mysql_query($qry);
+while($row = mysql_fetch_assoc($result)){
+    foreach($row as $cname => $cvalue){
+        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
+    }
+    echo "<br/>";
+}
+echo '</p>
+		</div>';
 }
 else{
     echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
@@ -159,7 +179,22 @@ $qry = "SELECT * FROM details WHERE year=1 AND position='member'";
 $result = mysql_query($qry);
 if($result){
     $total_fy_members=mysql_num_rows($result);
-    echo $total_fy_members-$amount_completed.' first year members have NOT completed their credits. '.'<a href="fy_incomplete_list.php">Who?</a><br/>';
+    $amount_not_completed = $total_fy_members-$amount_completed;
+    //echo $total_fy_members-$amount_completed.' first year members have NOT completed their credits. '.'<a href="fy_incomplete_list.php">Who?</a><br/>';
+	    echo '<h3>Members who have NOT completed their credits. ('.$amount_not_completed.')</h3>
+	<div>
+	<p>';
+	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds<'$fycreditsneeded' AND year=1 AND position='member'";
+$result = mysql_query($qry);
+while($row = mysql_fetch_assoc($result)){
+    foreach($row as $cname => $cvalue){
+        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
+    }
+    echo "<br/>";
+}
+echo '</p>
+		</div>
+		</div>';
 }
 ?>
 <?php } ?>
@@ -172,7 +207,21 @@ $qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$sycreditsneede
 $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
-    echo $amount_completed.' second year members have completed their credits. '.'<a href="sy_complete_list.php">Who?</a><br/>';
+    //echo $amount_completed.' second year members have completed their credits. '.'<a href="sy_complete_list.php">Who?</a><br/>';
+	echo '<div id="accordion">
+	<h3>Members who have completed their credits. ('.$amount_completed.')</h3>
+	<div>
+	<p>';
+	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds>='$sycreditsneeded' AND year=2 AND position='member'";
+$result = mysql_query($qry);
+while($row = mysql_fetch_assoc($result)){
+    foreach($row as $cname => $cvalue){
+        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
+    }
+    echo "<br/>";
+}
+echo '</p>
+		</div>';
 }
 else{
     echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
@@ -180,8 +229,23 @@ else{
 $qry = "SELECT * FROM details WHERE year=2 AND position='member'";
 $result = mysql_query($qry);
 if($result){
-    $total_fy_members=mysql_num_rows($result);
-    echo $total_fy_members-$amount_completed.' second year members have NOT completed their credits. '.'<a href="sy_incomplete_list.php">Who?</a><br/>';
+    $total_sy_members=mysql_num_rows($result);
+    $amount_not_completed = $total_sy_members-$amount_completed;
+    //echo $total_fy_members-$amount_completed.' second year members have NOT completed their credits. '.'<a href="sy_incomplete_list.php">Who?</a><br/>';
+	echo'<h3>Members who have NOT completed their credits. ('.$amount_not_completed.')</h3>
+	<div>
+	<p>';
+	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds<'$sycreditsneeded' AND year=2 AND position='member'";
+$result = mysql_query($qry);
+while($row = mysql_fetch_assoc($result)){
+    foreach($row as $cname => $cvalue){
+        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
+    }
+    echo "<br/>";
+}
+echo '</p>
+		</div>
+		</div>';
 }
 ?>
 <?php } ?>
@@ -218,32 +282,61 @@ $qry = "SELECT * FROM details WHERE position='member' AND tutoring=1";
 $result = mysql_query($qry);
 if($result){
     $amount_tutored = mysql_num_rows($result);
-    echo $amount_tutored.' members have completed their tutoring requirements. '.'<a href="complete_tutoring.php">Who?</a><br/>';
+    //echo '$amount_tutored.' members have completed their tutoring requirements. '.'<a href="complete_tutoring.php">Who?</a><br/>';
+    echo '<div id="accordion">
+    <h3>Members who have completed their tutoring requirements. ('.$amount_tutored.')</h3>
+    <div>
+    <p>';
+	$qry = "SELECT username FROM details WHERE tutoring=1 AND position='member'";
+	$result = mysql_query($qry);
+	while($row = mysql_fetch_assoc($result)){
+	    foreach($row as $cname => $cvalue){
+	        //echo "$cname: $cvalue";
+	        echo "$cvalue";
+	    }
+	    echo "<br/>";
+	}
+    echo '</p>
+    </div>';
 }
 else{
+	echo '<script type="text/javascript">alert("MYSQL QUERY Failed (SELECT * FROM details WHERE position=member AND tutoring=1)");</script>';
     echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
 }
 $qry = "SELECT * FROM details WHERE position='member' AND tutoring=0";
 $result = mysql_query($qry);
 if($result){
     $amount_not_tutored=mysql_num_rows($result);
-    echo $amount_not_tutored.' members have NOT completed their tutoring requirements. '.'<a href="incomplete_tutoring.php">Who?</a><br/>';
+    //echo $amount_not_tutored.' members have NOT completed their tutoring requirements. '.'<a href="incomplete_tutoring.php">Who?</a><br/>';
+	echo '<h3>Members who have NOT completed their tutoring requirements. ('.$amount_not_tutored.')</h3>
+    <div>
+    <p>';
+	$qry = "SELECT username FROM details WHERE tutoring=0 AND position='member'";
+	$result = mysql_query($qry);
+	while($row = mysql_fetch_assoc($result)){
+	    foreach($row as $cname => $cvalue){
+	        //echo "$cname: $cvalue";
+	        echo "$cvalue";
+	    }
+	    echo "<br/>";
+	}
+    echo '</p>
+    </div>
+    </div>';
 }
 ?>
 <?php } ?>
 
-<p align="center"><a href="login.php">logout</a></p>
-    </div>
-</div>
-<div id="footer">
+	<p align="center"><a href="login.php">logout</a></p>
+	    </div>
+	</div>
+	<div id="footer">
 		<div class="clearfix">
-			<div id="connect">
-				<a href="http://freewebsitetemplates.com/go/facebook/" target="_blank" class="facebook"></a><a href="http://freewebsitetemplates.com/go/googleplus/" target="_blank" class="googleplus"></a><a href="http://freewebsitetemplates.com/go/twitter/" target="_blank" class="twitter"></a><a href="http://www.freewebsitetemplates.com/misc/contact/" target="_blank" class="tumbler"></a>
-			</div>
 			<p>
 				Designed by Kartik Prabhu
 			</p>
 		</div>
+	</div>
 </div>
 </body>
 </html>

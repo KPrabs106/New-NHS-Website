@@ -25,7 +25,7 @@
     
     if($errflag){
         $_SESSION['ERRMSG_REG_ARR'] = $errmsg_reg_arr;
-        echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+        echo '<script type="text/javascript">location.href="home.php";</script>';
         die();
     }
     
@@ -48,20 +48,20 @@
             
             if($result){
                 $_SESSION['SUCCESS_REG_MSG'] = 'Success! '. $newusername .' was added.';
-                echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+				echo '<script type="text/javascript">location.href="home.php";</script>';
             }
             else{
-                echo '<script type="text/javascript">alert("QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+                echo '<script type="text/javascript">alert("QUERY FAILED!\nNO ENTRY WAS MADE.");location.href="home.php";</script>';
             }
         }
         else{
             //There is already someone with the same username
             $_SESSION['ERR_REG_MSG'] = $newusername.' already exists!';
-            echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+            echo '<script type="text/javascript">location.href="home.php";</script>';
         }
     }
     else{
-        echo '<script type="text/javascript">alert("CHECKING QUERY FAILED!\nNO ENTRY WAS MADE.");window.location="http://www.waynehillsnhs.org/home.php";</script>';
+        echo '<script type="text/javascript">alert("CHECKING QUERY FAILED!\nNO ENTRY WAS MADE.");location.href="home.php";</script>';
     }
 
     

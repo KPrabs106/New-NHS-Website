@@ -15,10 +15,10 @@ $result=mysql_query($qry);
 
 if($result){
     $_SESSION['SUCCESS_CRED_MSG'] = 'Credits updated!';
-    echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    echo '<script type="text/javascript">location.href="home.php";</script>';
 }
 else{
     $_SESSION['ERR_CRED_MSG'] = 'Failed!';
-    echo '<script type="text/javascript">window.location="http://www.waynehillsnhs.org/home.php";</script>';
+    echo '<script type="text/javascript">location.href="home.php";</script>';
 }
 ?>

@@ -38,7 +38,7 @@ if($password == ''){
 if($errflag){
 	$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 	session_write_close();
-        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
+        echo '<script type="text/javascript"> location.href = "login.php";</script>';
 	die();
 }
 
@@ -62,7 +62,7 @@ if ($result){
 		$_SESSION['SESS_TUTORING'] = $member['tutoring'];
                 $_SESSION['SESS_POSITION'] = $member['position'];
 		
-		echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/home.php";</script>';
+		echo '<script type="text/javascript">location.href="home.php";</script>';
 	}
 	else{
 		//Failed login
@@ -71,7 +71,7 @@ if ($result){
 		if($errflag){
 			$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 			session_write_close();
-		        echo '<script type="text/javascript"> document.location = "http://waynehillsnhs.org/login.php";</script>';
+		        echo '<script type="text/javascript">location.href="login.php";</script>';
 			exit();
 		}
 	}

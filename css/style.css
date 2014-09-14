@@ -17,10 +17,13 @@ body {
 	background-color: #fff;
 	font-family: 'Open Sans', sans-serif;
 	margin: 0;
+	padding: 0;
+	height:100%;
 }
 img {
 	border: 0;
 }
+
 .clearfix:after, #contents:after {
 	clear:both;
 	content:"";
@@ -44,11 +47,15 @@ img {
 .btn:hover {
 	background-position: 0 0;
 }
+#wrapper{
+	min-height:100%;
+	position:relative;
+}
 /*------------------------------ HEADER ------------------------------*/
 #header {
 	background-color: #660033;
 	border-bottom: 1px solid #e6e6e6;
-	padding: 27px 0;
+	padding: 20px;
 }
 #header > div, #footer > div {
 	width: 920px;
@@ -148,17 +155,21 @@ img {
 }
 /*------------------------------ CONTENTS ------------------------------*/
 #contents {
-	min-height: 510px;
-	width: 880px;
+	/*min-height: 510px;*/
+	height: auto;
+	/*width: 880px;*/
+	width:50%;
 	margin: 0 auto;
-	padding: 54px 40px;
+	padding: 10px;
+	padding-bottom:50px;
+	padding-top: 30px;
+	/*margin-bottom: -50px;*/
 }
 h1 {
 	color: #3e3e3e;
 	font-size: 30px;
 	font-weight: normal;
 	line-height: 30px;
-	margin: 0 0 30px;
 }
 h2 {
 	color: #2c2c2c;
@@ -360,9 +371,15 @@ p a {
 }
 /*------------------------------ FOOTER ------------------------------*/
 #footer {
+	height: 60px;
+	overflow: hidden;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
 	background-color: #660033;
 	border-top: 1px solid #d8d8d8;
-	padding: 30px 0;
+	padding: 10px;
 }
 #footer p {
 	font-size: 12px;

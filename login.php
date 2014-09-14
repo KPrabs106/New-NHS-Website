@@ -16,6 +16,8 @@
 <head>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/blitzer/jquery-ui.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <meta charset="UTF-8">
 <title>Log In</title>
@@ -34,7 +36,7 @@
                 <a href="news.html">News</a>
             </li>
             <li>
-                <a href="about.html">About</a>
+                <a href="tutoring.php">Tutoring</a>
             </li>
             <li>
                 <a href="contact.html">Contact</a>
@@ -50,11 +52,16 @@
 <!-- Displays message of the input validation -->
 <?php
 if(isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count($_SESSION['ERRMSG_ARR']) >0 ){
-	echo '<ul>';
+	echo '<br>';
+	echo '<p class="ui-state-error">';
+	//echo '<br/>';
+	//echo '<ul>';
 	foreach($_SESSION['ERRMSG_ARR'] as $msg){
-		echo '<li>',$msg,'</li>';
+		echo $msg.'<br/>';
+		//echo '<li>',$msg,'</li>';
 	}
-	echo '</ul>';
+	echo '</p>';
+	//echo '</ul>';
 	unset($_SESSION['ERRMSG_ARR']);
 }
 ?>
@@ -72,9 +79,6 @@ if(isset($_SESSION['ERRMSG_ARR']) && is_array($_SESSION['ERRMSG_ARR']) && count(
 </div>
 <div id="footer">
 		<div class="clearfix">
-			<div id="connect">
-				<a href="http://freewebsitetemplates.com/go/facebook/" target="_blank" class="facebook"></a><a href="http://freewebsitetemplates.com/go/googleplus/" target="_blank" class="googleplus"></a><a href="http://freewebsitetemplates.com/go/twitter/" target="_blank" class="twitter"></a><a href="http://www.freewebsitetemplates.com/misc/contact/" target="_blank" class="tumbler"></a>
-			</div>
 			<p>
 				Designed by Kartik Prabhu
 			</p>
