@@ -11,8 +11,23 @@ include('vars.php');
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/blitzer/jquery-ui.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="js/jquery.tablesorter.min.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="js/tablesorter/style.css">
+    <style>
+    	td{
+    		text-align:center;
+    	}
+    </style>
     <script>
+    $(document).ready(function() 
+    { 
+        $("#myTable1").tablesorter();
+        $("#myTable2").tablesorter(); 
+        $("#myTable3").tablesorter(); 
+        $("#myTable4").tablesorter();  
+    } 
+); 
         $(function() {
             $("#usernameauto").autocomplete({
                 source: "search.php",
@@ -62,6 +77,8 @@ You are now logged in as
 echo '<var>'.$_SESSION['SESS_USERNAME'].'</var>';
 echo '<br>';
 ?>
+
+
 
 <!--Displays if the user is just a member-->
 <?php
@@ -162,14 +179,21 @@ if($result){
 	<div>
 	<p>';
 	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=1 AND position='member'";
-$result = mysql_query($qry);
-while($row = mysql_fetch_assoc($result)){
-    foreach($row as $cname => $cvalue){
-        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
-    }
-    echo "<br/>";
-}
-echo '</p>
+	$result = mysql_query($qry);
+	echo '<table id="myTable1" class="tablesorter">
+			<thead>
+			<tr>
+				<th>Username</th>
+				<th>Service Credits</th>
+				<th>Donation Credits</th>
+			</tr>
+			</thead>
+			<tbody>';
+	while($row = mysql_fetch_assoc($result)){
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+	}
+	echo '</table>';
+	echo '</p>
 		</div>';
 }
 else{
@@ -185,14 +209,21 @@ if($result){
 	<div>
 	<p>';
 	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds<'$fycreditsneeded' AND year=1 AND position='member'";
-$result = mysql_query($qry);
-while($row = mysql_fetch_assoc($result)){
-    foreach($row as $cname => $cvalue){
-        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
-    }
-    echo "<br/>";
-}
-echo '</p>
+	$result = mysql_query($qry);
+	echo '<table id="myTable2" class="tablesorter">
+			<thead>
+			<tr>
+				<th>Username</th>
+				<th>Service Credits</th>
+				<th>Donation Credits</th>
+			</tr>
+			</thead>
+			<tbody>';
+	while($row = mysql_fetch_assoc($result)){
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+	}
+	echo '</table>';
+	echo '</p>
 		</div>
 		</div>';
 }
@@ -208,20 +239,28 @@ $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
     //echo $amount_completed.' second year members have completed their credits. '.'<a href="sy_complete_list.php">Who?</a><br/>';
-	echo '<div id="accordion">
+	echo '<div id="accordion" style="width:800px;">
 	<h3>Members who have completed their credits. ('.$amount_completed.')</h3>
 	<div>
 	<p>';
 	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds>='$sycreditsneeded' AND year=2 AND position='member'";
-$result = mysql_query($qry);
-while($row = mysql_fetch_assoc($result)){
-    foreach($row as $cname => $cvalue){
-        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
-    }
-    echo "<br/>";
-}
-echo '</p>
-		</div>';
+	$result = mysql_query($qry);
+	echo '<table id="myTable3" class="tablesorter">
+			<thead>
+			<tr>
+				<th>Username</th>
+				<th>Service Credits</th>
+				<th>Donation Credits</th>
+			</tr>
+			</thead>
+			<tbody>';
+	while($row = mysql_fetch_assoc($result)){
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+	}
+	echo '</table>';
+	echo '</p>
+		</div>
+		';
 }
 else{
     echo '<script type="text/javascript"> alert("FAILED QUERY!");</script>';
@@ -236,14 +275,22 @@ if($result){
 	<div>
 	<p>';
 	$qry = "SELECT username,servicecreds,donationcreds FROM details WHERE servicecreds+donationcreds<'$sycreditsneeded' AND year=2 AND position='member'";
-$result = mysql_query($qry);
-while($row = mysql_fetch_assoc($result)){
-    foreach($row as $cname => $cvalue){
-        echo "$cname: $cvalue&nbsp;&nbsp;&nbsp;";
-    }
-    echo "<br/>";
-}
-echo '</p>
+	$result = mysql_query($qry);
+	echo '<table id="myTable4" class="tablesorter">
+			<thead>
+			<tr>
+				<th>Username</th>
+				<th>Service Credits</th>
+				<th>Donation Credits</th>
+			</tr>
+			</thead>
+			<tbody>';
+	while($row = mysql_fetch_assoc($result)){
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+	}
+	echo '</tbody>
+			</table>';
+	echo '</p>
 		</div>
 		</div>';
 }
