@@ -55,9 +55,9 @@ session_start();
 			}
 			?>
             <form method="post" action="send_email.php">
-                <input type="radio" name="role" value="student">I want to tutor
+                <input type="radio" name="role" value="tutor">I want to tutor.
                 <br/>
-                <input type="radio" name="role" value="tutor">I want to be tutored
+                <input type="radio" name="role" value="student">I need tutoring.
                 <br/>
                 Full name:
                 <input type="text" name="fullname">
