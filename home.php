@@ -76,9 +76,9 @@ You are now logged in as
 <?php 
 echo '<var>'.$_SESSION['SESS_USERNAME'].'</var>';
 echo '<br>';
+echo 'View the events Google Doc <a href="https://docs.google.com/spreadsheets/d/1Fa-2GjDTDqh9dTo3Mv1AjSLoy7Y3iopR9SWuvC0O6W8/edit?usp=sharing">here</a>!';
+echo '<br>';
 ?>
-
-
 
 <!--Displays if the user is just a member-->
 <?php
@@ -186,11 +186,12 @@ if($result){
 				<th>Username</th>
 				<th>Service Credits</th>
 				<th>Donation Credits</th>
+				<th>Total Credits</th>
 			</tr>
 			</thead>
 			<tbody>';
 	while($row = mysql_fetch_assoc($result)){
-    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td><td>'.($row['servicecreds']+$row['donationcreds']).'</tr>';
 	}
 	echo '</table>';
 	echo '</p>
@@ -216,11 +217,12 @@ if($result){
 				<th>Username</th>
 				<th>Service Credits</th>
 				<th>Donation Credits</th>
+				<th>Total Credits</th>
 			</tr>
 			</thead>
 			<tbody>';
 	while($row = mysql_fetch_assoc($result)){
-    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td><td>'.($row['servicecreds']+$row['donationcreds']).'</tr>';
 	}
 	echo '</table>';
 	echo '</p>
@@ -251,11 +253,12 @@ if($result){
 				<th>Username</th>
 				<th>Service Credits</th>
 				<th>Donation Credits</th>
+				<th>Total Credits</th>
 			</tr>
 			</thead>
 			<tbody>';
 	while($row = mysql_fetch_assoc($result)){
-    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td><td>'.($row['servicecreds']+$row['donationcreds']).'</tr>';
 	}
 	echo '</table>';
 	echo '</p>
@@ -282,11 +285,12 @@ if($result){
 				<th>Username</th>
 				<th>Service Credits</th>
 				<th>Donation Credits</th>
+				<th>Total Credits</th>
 			</tr>
 			</thead>
 			<tbody>';
 	while($row = mysql_fetch_assoc($result)){
-    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td></tr>';
+    	echo '<tr><td>'.$row['username'].'</td><td>'.$row['servicecreds'].'</td><td>'.$row['donationcreds'].'</td><td>'.($row['servicecreds']+$row['donationcreds']).'</tr>';
 	}
 	echo '</tbody>
 			</table>';
