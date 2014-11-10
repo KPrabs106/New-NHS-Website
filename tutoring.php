@@ -11,7 +11,17 @@ session_start();
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <meta charset="UTF-8">
     <title>Tutoring- Wayne Hills NHS</title>
-    
+    <script language="JavaScript">
+    	function ShowLogIn()
+    	{
+    		if(document.getElementById('tutor').checked){
+    			document.getElementById('login').style.display = 'block';    			
+    		}
+    		else{
+    			document.getElementById('login').style.display = 'none';
+    		}
+    	}
+    </script>
 </head>
 <body>
 	<div id="header">
@@ -27,7 +37,7 @@ session_start();
 					<a href="news.html">News</a>
 				</li>
 				<li class="active">
-					<a href="about.html">Tutoring</a>
+					<a href="tutoring.php">Tutoring</a>
 				</li>
 				<li>
 					<a href="contact.html">Contact</a>
@@ -55,10 +65,32 @@ session_start();
 			}
 			?>
             <form method="post" action="send_email.php">
-                <input type="radio" name="role" value="tutor">I want to tutor.
+                <input type="radio" name="role" id="tutor" value="tutor" onchange="ShowLogIn()">I want to tutor.
                 <br/>
-                <input type="radio" name="role" value="student">I need tutoring.
+                <input type="radio" name="role" id="student" value="student" onchange="ShowLogIn()">I need tutoring.
                 <br/>
+			<?php
+				if(isset($_SESSION['ERR_LOGIN_ARR'])){
+	    			echo '<p class="ui-state-error">';
+	    			//echo '<ul>';
+					foreach($_SESSION['ERR_LOGIN_ARR'] as $msg){
+						echo $msg.'<br/>';
+						//echo '<li>',$msg,'</li>';
+				}
+				//echo '</ul>';
+    			echo '</p>';
+    			unset($_SESSION['ERR_LOGIN_ARR']);
+			}
+			?>
+	            <div id="login" style="display: none;">
+	            	<h3>You must be an NHS member in order to tutor. Please enter the following:</h3>
+	            	User name (ex: johnsmith)
+		            <br><input type="Text" name="username" size="40" /><br>
+		            Password (8 digit SCHOOL USERNAME)
+		            <br><input type="password" name="pass" size="40" /><br>
+		            <br>
+		            <br>
+	            </div>
                 Full name:
                 <input type="text" name="fullname">
                 &nbsp;&nbsp;&nbsp;&nbsp;

@@ -27,13 +27,28 @@ include('vars.php');
         $("#myTable3").tablesorter(); 
         $("#myTable4").tablesorter();  
     } 
-); 
+	); 
         $(function() {
             $("#usernameauto").autocomplete({
                 source: "search.php",
                 minLength: 2
             });
-            $( "#accordion" ).accordion({
+            $("#usernameauto2").autocomplete({
+                source: "search.php",
+                minLength: 2
+            });
+            
+            $( "#accordion1" ).accordion({
+	            collapsible: true,
+	            heightStyle: "content"
+	        });
+	        
+	        $( "#accordion2" ).accordion({
+	            collapsible: true,
+	            heightStyle: "content"
+	        });
+	        
+	        $( "#accordion3" ).accordion({
 	            collapsible: true,
 	            heightStyle: "content"
 	        });
@@ -80,8 +95,15 @@ echo 'View the events Google Doc <a href="https://docs.google.com/spreadsheets/d
 echo '<br>';
 ?>
 
+<!--
 <!--Displays if the user is just a member-->
 <?php
+if($_SESSION['SESS_POSITION'] == 'advisor'){
+    echo 'You have &infin; service credits and &infin; donation credits.';
+    echo '<br>';
+	echo '<img src="check.png" alt="Good to go!">';
+}
+
 if($_SESSION['SESS_POSITION'] == 'member'){
     echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
     echo '<br>';
@@ -137,7 +159,7 @@ if(isset($_SESSION['ERR_REG_MSG'])){
 <?php } ?>
 
 <!--Displays if the user is a credit officer-->
-<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || ($_SESSION['SESS_POSITION'] == 'sycro')) { ?>
+<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || ($_SESSION['SESS_POSITION'] == 'sycro') || $_SESSION['SESS_POSITION'] == 'advisor') { ?>
 <!--Credit Updater Form-->
 <form method="post" action="credit_update.php">
     <fieldset>
@@ -166,15 +188,17 @@ if(isset($_SESSION['ERR_REG_MSG'])){
 <?php } ?>
 
 <!--Displays if the user is a first year credit officer-->
-<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') ) { ?>
-<h1>Credit Statistics (First Year)</h1>
+<?php if( ($_SESSION['SESS_POSITION'] == 'fycro') || $_SESSION['SESS_POSITION'] == 'advisor') { ?>
+<fieldset>
+	<legend>Credits Details (First Year)</legend>
+
 <?php
 $qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$fycreditsneeded' AND year=1 AND position='member'";
 $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
     //echo $amount_completed.' first year members have completed their credits. '.'<a href="fy_complete_list.php">Who?</a><br/>';
-    echo '<div id="accordion" style="width:800px;">
+    echo '<div id="accordion1" style="width:auto;">
 	<h3>Members who have completed their credits. ('.$amount_completed.')</h3>
 	<div>
 	<p>';
@@ -230,18 +254,21 @@ if($result){
 		</div>';
 }
 ?>
+</fieldset>
 <?php } ?>
 
+
 <!--Displays if the user is a second year credit officer-->
-<?php if( ($_SESSION['SESS_POSITION'] == 'sycro') ) { ?>
-<h1>Credit Statistics (Second Year)</h1>
+<?php if( ($_SESSION['SESS_POSITION'] == 'sycro') || $_SESSION['SESS_POSITION'] == 'advisor' ) { ?>
+<fieldset>
+	<legend>Credits Details (Second Year)</legend>
 <?php
 $qry = "SELECT * FROM details WHERE servicecreds+donationcreds>='$sycreditsneeded' AND year=2 AND position='member'";
 $result = mysql_query($qry);
 if($result){
     $amount_completed= mysql_num_rows($result);
     //echo $amount_completed.' second year members have completed their credits. '.'<a href="sy_complete_list.php">Who?</a><br/>';
-	echo '<div id="accordion" style="width:800px;">
+	echo '<div id="accordion2" style="width:auto;">
 	<h3>Members who have completed their credits. ('.$amount_completed.')</h3>
 	<div>
 	<p>';
@@ -299,10 +326,11 @@ if($result){
 		</div>';
 }
 ?>
+</fieldset>
 <?php } ?>
 
 <!--Displays if the user is a tutoring officer-->
-<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring')) { ?>
+<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring') || $_SESSION['SESS_POSITION'] == 'advisor' ) { ?>
 <form method="post" action="tutoring_update.php">
     <fieldset>
         <legend>Tutoring Updater</legend>
@@ -318,23 +346,23 @@ if(isset($_SESSION['ERR_TUT_MSG'])){
 }
 ?>
     <label for="username">Username</label>
-
-    <input type="text" name="username" size="40" id="usernameauto"/><br/>
+    <input type="text" name="username" size="40" id="usernameauto2"/><br/>
     <input type="submit" name="submit" value="Update" />
     </fieldset>
 </form>
 <?php } ?>
 
 <!--Displays if the user is a tutoring officer-->
-<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring' )) { ?>
-<h1>Tutoring Statistics</h1>
+<?php if( ($_SESSION['SESS_POSITION'] == 'tutoring' ) || $_SESSION['SESS_POSITION'] == 'advisor' ) { ?>
+<fieldset>
+	<legend>Tutoring Details</legend>
 <?php
 $qry = "SELECT * FROM details WHERE position='member' AND tutoring=1";
 $result = mysql_query($qry);
 if($result){
     $amount_tutored = mysql_num_rows($result);
     //echo '$amount_tutored.' members have completed their tutoring requirements. '.'<a href="complete_tutoring.php">Who?</a><br/>';
-    echo '<div id="accordion">
+    echo '<div id="accordion3" width="auto;">
     <h3>Members who have completed their tutoring requirements. ('.$amount_tutored.')</h3>
     <div>
     <p>';
@@ -376,6 +404,7 @@ if($result){
     </div>';
 }
 ?>
+</fieldset>
 <?php } ?>
 
 	<p align="center"><a href="login.php">logout</a></p>
