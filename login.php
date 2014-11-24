@@ -33,7 +33,7 @@
                 <a href="index.html">Home</a>
             </li>
             <li>
-                <a href="news.html">News</a>
+                <a href="files.html">Files</a>
             </li>
             <li>
                 <a href="tutoring.php">Tutoring</a>
@@ -42,7 +42,7 @@
                 <a href="contact.html">Contact</a>
             </li>
             <li class="active">
-                <a href="home.php">My NHS</a>
+                <a href="home.php">Log In</a>
             </li>
         </ul>
     </div>

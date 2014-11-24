@@ -70,7 +70,7 @@ include('vars.php');
 		                <a href="index.html">Home</a>
 		            </li>
 		            <li>
-		                <a href="news.html">News</a>
+		                <a href="files.html">Files</a>
 		            </li>
 		            <li>
 		                <a href="tutoring.php">Tutoring</a>
@@ -79,7 +79,7 @@ include('vars.php');
 		                <a href="contact.html">Contact</a>
 		            </li>
 		            <li class="active">
-		                <a href="home.php">My NHS</a>
+		                <a href="home.php">Log In</a>
 		            </li>
 		        </ul>
 		    </div>
@@ -89,10 +89,18 @@ include('vars.php');
 		    	<br/>
 You are now logged in as  
 <?php 
-echo '<var>'.$_SESSION['SESS_USERNAME'].'</var>';
-echo '<br>';
+if($_SESSION['SESS_USERNAME'] == 'rishijashnani'){
+	echo '<b><var><strike>rohitshinde</strike> rishijashnani.</var></b>';
+}
+else if($_SESSION['SESS_USERNAME'] == 'rohitshinde'){
+	echo '<b><var><strike>rishijashnani</strike> rohitshinde.</var></b>';
+}
+else{
+	echo '<b><var>'.$_SESSION['SESS_USERNAME'].'.</var></b> <a href="login.php"><button type="button">Logout</button></a>';
+}
+echo '<br><br>';
 echo 'View the events Google Doc <a href="https://docs.google.com/spreadsheets/d/1Fa-2GjDTDqh9dTo3Mv1AjSLoy7Y3iopR9SWuvC0O6W8/edit?usp=sharing">here</a>!';
-echo '<br>';
+echo '<br><br>';
 ?>
 
 <!--
@@ -105,7 +113,13 @@ if($_SESSION['SESS_POSITION'] == 'advisor'){
 }
 
 if($_SESSION['SESS_POSITION'] == 'member'){
-    echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits.';
+    echo 'You have '.$_SESSION['SESS_SERVICECREDS'].' service credits and '.$_SESSION['SESS_DONATIONCREDS']. ' donation credits. ';
+	if($_SESSION['SESS_TUTORING'] == 1){
+		echo 'You have completed your tutoring requirement.';
+	}
+	else{
+		echo 'You have NOT completed your tutoring requirement.';
+	}
     echo '<br>';
     if($_SESSION['SESS_YEAR'] == 1){
         $credits_needed = $fycreditsneeded;
@@ -114,7 +128,7 @@ if($_SESSION['SESS_POSITION'] == 'member'){
         $credits_needed = $sycreditsneeded;
     }
     
-    if(($_SESSION['SESS_SERVICECREDS']+$_SESSION['SESS_DONATIONCREDS']) >= $credits_needed){
+    if(($_SESSION['SESS_SERVICECREDS']+$_SESSION['SESS_DONATIONCREDS']) >= $credits_needed && $_SESSION['SESS_TUTORING'] == 1){
         echo '<img src="check.png" alt="Good to go!">';
     }
     else{
@@ -406,8 +420,7 @@ if($result){
 ?>
 </fieldset>
 <?php } ?>
-
-	<p align="center"><a href="login.php">logout</a></p>
+	<br>
 	    </div>
 	</div>
 	<div id="footer">

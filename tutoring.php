@@ -34,7 +34,7 @@ session_start();
 					<a href="index.html">Home</a>
 				</li>
 				<li>
-					<a href="news.html">News</a>
+					<a href="files.html">Files</a>
 				</li>
 				<li class="active">
 					<a href="tutoring.php">Tutoring</a>
@@ -42,8 +42,8 @@ session_start();
 				<li>
 					<a href="contact.html">Contact</a>
 				</li>
-                                <li>
-					<a href="home.php">My NHS</a>
+                <li>
+	                <a href="home.php">Log In</a>
 				</li>
 			</ul>
 		</div>
