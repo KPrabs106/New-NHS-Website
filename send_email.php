@@ -19,9 +19,29 @@
 		return mysql_real_escape_string($str);
 	}
 	
-	//Clean the POST values
-	$username = clean($_POST['username']);
-	$password = clean($_POST['pass']);
+	if($_POST['role'] == 'tutor')
+	{
+		//Clean the POST values
+		$username = clean($_POST['username']);
+		$password = clean($_POST['pass']);
+		
+		//Validate input
+		if($username == ''){
+			$errmsg_arr[] = 'Username missing';
+			$errflag = true;
+		}
+		if($password == ''){
+			$errmsg_arr[] = 'Password missing';
+			$errflag = true;
+		}
+		
+		if($errflag){
+			$_SESSION['ERR_LOGIN_ARR'] = $errmsg_arr;
+			session_write_close();
+		    echo '<script type="text/javascript">location.href = "tutoring.php";</script>';
+			die();
+		}
+	}
 	
 	//Validate input
 	if($username == ''){
@@ -59,9 +79,8 @@
 	}
 	
 	//Redirect back if there are any errors
-	if($errflag_tut || $errflag){
+	if($errflag_tut){
 		$_SESSION['ERR_TUT_ARR'] = $err_tut_arr;
-		$_SESSION['ERR_LOGIN_ARR'] = $errmsg_arr;
 		session_write_close();
 	    echo '<script type="text/javascript">location.href = "tutoring.php";</script>';
 		die();
@@ -70,32 +89,35 @@
 	/**************************
 	 Check log in credentials
 	 **************************/
-	//Hash the password
-	$password_hash = md5($password);
-	//Create a query
-	$qry="SELECT * FROM details WHERE username='$username' AND password='$password_hash'";
-	$result=mysql_query($qry);
-	
-	//Check if query was successful
-	if ($result){
-		if(mysql_num_rows($result) > 0){
-			//Successful login
-			session_regenerate_id();
-		}
-		else{
-			//Failed login
-			$errmsg_arr[] = 'invalid username and/or password';
-			$errflag = true;
-			if($errflag){
-				$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
-				session_write_close();
-			    echo '<script type="text/javascript">location.href="login.php";</script>';
-				exit();
+	 if($_POST['role'] == 'tutor')
+	{
+		//Hash the password
+		$password_hash = md5($password);
+		//Create a query
+		$qry="SELECT * FROM details WHERE username='$username' AND password='$password_hash'";
+		$result=mysql_query($qry);
+		
+		//Check if query was successful
+		if ($result){
+			if(mysql_num_rows($result) > 0){
+				//Successful login
+				session_regenerate_id();
 			}
+			else{
+				//Failed login
+				$errmsg_arr[] = 'invalid username and/or password';
+				$errflag = true;
+				if($errflag){
+					$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+					session_write_close();
+				    echo '<script type="text/javascript">location.href="tutoring.php";</script>';
+					exit();
+				}
+			}
+		}		
+		else{
+			die("Query failed");
 		}
-	}		
-	else{
-		die("Query failed");
 	}
 	
 	//Create and send the email

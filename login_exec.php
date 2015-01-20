@@ -56,11 +56,16 @@ if ($result){
 		$member = mysql_fetch_assoc($result);
 		//Assign values
 		$_SESSION['SESS_USERNAME'] = $member['username'];
-                $_SESSION['SESS_YEAR'] = $member['year'];
+        $_SESSION['SESS_YEAR'] = $member['year'];
 		$_SESSION['SESS_SERVICECREDS'] = $member['servicecreds'];
 		$_SESSION['SESS_DONATIONCREDS'] = $member['donationcreds'];
 		$_SESSION['SESS_TUTORING'] = $member['tutoring'];
-                $_SESSION['SESS_POSITION'] = $member['position'];
+        $_SESSION['SESS_POSITION'] = $member['position'];
+		
+		$current_date = date("Y-m-d");
+		$username = $_SESSION['SESS_USERNAME'];
+		$qry = "UPDATE details SET lastlogin='$current_date' WHERE username='$username'";
+		$result = mysql_query($qry);
 		
 		echo '<script type="text/javascript">location.href="home.php";</script>';
 	}

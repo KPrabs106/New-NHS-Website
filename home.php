@@ -90,7 +90,7 @@ include('vars.php');
 You are now logged in as  
 <?php 
 if($_SESSION['SESS_USERNAME'] == 'rishijashnani'){
-	echo '<b><var><strike>rohitshinde</strike> rishijashnani.</var></b>';
+	echo '<b><var><strike>rohitshinde</strike> rishijashnani.</var></b><a href="login.php"><img src="logout.jpg" alt="Log Out" width="135" height="240"/></a>';
 }
 else if($_SESSION['SESS_USERNAME'] == 'rohitshinde'){
 	echo '<b><var><strike>rishijashnani</strike> rohitshinde.</var></b>';
@@ -109,7 +109,7 @@ echo '<br><br>';
 if($_SESSION['SESS_POSITION'] == 'advisor'){
     echo 'You have &infin; service credits and &infin; donation credits.';
     echo '<br>';
-	echo '<img src="check.png" alt="Good to go!">';
+	echo '<img src="shale_good_advisor.jpg" width="270" height="480" alt="Good to go!">';
 }
 
 if($_SESSION['SESS_POSITION'] == 'member'){
@@ -132,7 +132,10 @@ if($_SESSION['SESS_POSITION'] == 'member'){
         echo '<img src="check.png" alt="Good to go!">';
     }
     else{
-        echo '<img src="wrong.png" alt="You still need more!">';
+        echo '<img src="shale_bad.jpg" width="270" height="480" alt="You still need more!">';
+		/*For randomization:
+		 * echo '<img src = "images/good_<?php echo rand(0,5); ?>.jpg" alt = "You still need more!" />';
+		 */
     }
 }
 ?>
